@@ -3,3 +3,4 @@
 
 ## Group Members
 - Anthony Forsythe
+- Nicolas Smith
