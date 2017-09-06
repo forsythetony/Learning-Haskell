@@ -4,3 +4,4 @@
 ## Group Members
 - Anthony Forsythe
 - Miranda Reese
+- Nicolas Smith
