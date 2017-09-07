@@ -5,3 +5,4 @@
 - Anthony Forsythe
 - Miranda Reese
 - Nicolas Smith
+- Anjay Patel
