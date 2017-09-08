@@ -5,11 +5,16 @@ import Test.Hspec -- <- DO NOT REMOVE THIS
 -- @param  Char
 -- @output Char
 -- @description:
+--    If this character is a letter in the alphabet it will return the
+--    successor to that letter. So for example an input of 'a' would
+--    return 'b'. 'z' will return 'a' and 'Z' will return 'A'. If the
+--    input character is not a letter this function will return whatever
+--    the input is.
 prob1 :: Char -> Char
 prob1 a
   | a == 'Z' = 'A'
   | a == 'z' = 'a'
-  | a `elem` ['A'..'Z']   = succ a
+  | a `elem` ['A'..'z']   = succ a
   | a `elem` ['a'..'z']   = succ a
   | otherwise             = a
 
@@ -19,6 +24,9 @@ prob1 a
 -- @param  Char
 -- @output Int
 -- @description:
+--    This function will return the Integer equivalent of the character
+--    provided so long as it is numerical. If it is not numerical this
+--    function will return -1
 prob2 :: Char -> Int
 prob2 a
   | a == '0' = 0
@@ -40,6 +48,12 @@ prob2 a
 -- @param  input of type a
 -- @output tuple of type (b, c)
 -- @description:
+--    This function will take two functions that take a value
+--    of type a and an input of type a and return a tuple with
+--    the first value being the output of the first function applied
+--    to the input initially passed in and the second value of the tuple
+--    being the output of the second function passed to this same initial input.
+--    Sorry if that description was verbose.
 prob3 :: (a -> b) -> (a -> c) -> a -> (b, c)
 prob3 a b c = ( a c , b c )
 
@@ -50,6 +64,10 @@ prob3 a b c = ( a c , b c )
 -- @param  input of type a
 -- @output output of type a
 -- @description:
+--    Takes a Boolean value and two other inputs of type a. If the
+--    bool value is true then it will return the first of the two
+--    other inputs and if false will return the second of the two
+--    inputs.
 prob4 :: Bool -> a -> a -> a
 prob4 a b c
   | a == True = b
@@ -60,6 +78,8 @@ prob4 a b c
 -- @param  Integer
 -- @output Bool
 -- @description:
+--    This function will take a year (in the Gregorian calendar) and
+--    return True if it is a leap year and False if it is not
 prob5 :: Integer -> Bool
 prob5 y
   | (mod y 100 == 0) && ((mod y 400 == 0) == False) = False
