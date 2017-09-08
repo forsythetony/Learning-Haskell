@@ -14,7 +14,7 @@ prob1 :: Char -> Char
 prob1 a
   | a == 'Z' = 'A'
   | a == 'z' = 'a'
-  | a `elem` ['A'..'z']   = succ a
+  | a `elem` ['A'..'Z']   = succ a
   | a `elem` ['a'..'z']   = succ a
   | otherwise             = a
 
