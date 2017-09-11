@@ -61,8 +61,8 @@ prob3 a b c = ( a c , b c )
 --    inputs.
 prob4 :: Bool -> a -> a -> a
 prob4 a b c
-  | a == True = b
-  | a == False = c
+  | a == True   = b
+  | a == False  = c
 
 -- prob5
 -- @type
@@ -73,10 +73,10 @@ prob4 a b c
 --    return True if it is a leap year and False if it is not
 prob5 :: Integer -> Bool
 prob5 y
-  | (mod y 100 == 0) && ((mod y 400 == 0) == False) = False
-  | (mod y 100 == 0) && (mod y 400 == 0) = True
-  | (mod y 4 == 0) = True
-  | otherwise = False
+  | (mod y 100 == 0) && ((mod y 400 == 0) == False)   = False
+  | (mod y 100 == 0) && (mod y 400 == 0)              = True
+  | (mod y 4 == 0)                                    = True
+  | otherwise                                         = False
 
 -- All Unit Tests Below This Line --
 -- Don't touch anything below this line
