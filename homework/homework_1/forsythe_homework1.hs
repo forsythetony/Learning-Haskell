@@ -29,17 +29,8 @@ prob1 a
 --    function will return -1
 prob2 :: Char -> Int
 prob2 a
-  | a == '0' = 0
-  | a == '1' = 1
-  | a == '2' = 2
-  | a == '3' = 3
-  | a == '4' = 4
-  | a == '5' = 5
-  | a == '6' = 6
-  | a == '7' = 7
-  | a == '8' = 8
-  | a == '9' = 9
-  | otherwise         = -1
+  | ((a `elem` ['0'..'9']) == True) = fromEnum a - 48
+  | otherwise                       = -1
 
 -- Function prob3
 -- @type
