@@ -1,4 +1,5 @@
 module Homework2 where
+import Test.Hspec
 import Test.QuickCheck
 -- Function prob1
 -- @type
@@ -6,15 +7,22 @@ import Test.QuickCheck
 -- @output
 -- @description:
 -- listComp f p xs = [ f x | x <- xs, p x]
-prob1 :: a
-prob1 = undefined
+prob1 :: (a -> b) -> (a -> Bool) -> [a] -> [b]
+prob1 f p xs = map f ys
+                where ys = filter p xs
 -- Function prob2
 -- @type
 -- @param
 -- @output
 -- @description:
-prob2 :: a
-prob2 = undefined
+prob2 :: Integer -> [Integer]
+prob2 a
+  | a < 0 = []
+  | otherwise = map toInt listString
+                where listString = show a
+                      toInt i
+                        | ((i `elem` ['0'..'9']) == True) = toInteger (fromEnum i) - 48
+                        | otherwise                       = -1
 -- Function prob3
 -- @type
 -- @param
