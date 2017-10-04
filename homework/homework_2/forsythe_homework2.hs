@@ -7,7 +7,8 @@ import Test.QuickCheck
 -- @description:
 -- listComp f p xs = [ f x | x <- xs, p x]
 prob1 :: a
-prob1 = undefined
+prob1 f p xs = map f ys
+                where ys = filter p xs
 -- Function prob2
 -- @type
 -- @param
