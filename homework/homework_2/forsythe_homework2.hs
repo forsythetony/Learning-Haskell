@@ -3,18 +3,46 @@ import Test.Hspec
 import Test.QuickCheck
 -- Function prob1
 -- @type
+--  (a -> b) -> (a -> Bool) -> [a] -> [b]
+--
 -- @param
+--    This function takes the following as inputs:
+--      - The map function, a function that takes a value of type a and returns
+--        a value of type b
+--      - The filter function, a function that takes a value of type a and
+--        returns a Bool value
+--      - An input list of type a
+--
 -- @output
+--    A list of type b. These are the outputs of the map function operating over
+--    the values that have not been filtered out of the list.
+--
 -- @description:
--- listComp f p xs = [ f x | x <- xs, p x]
+--    The map function will operate over all values of the input list for which
+--    the filter function evaluates to True. The outputs will be returned as a
+--    list.
+--
 prob1 :: (a -> b) -> (a -> Bool) -> [a] -> [b]
 prob1 f p xs = map f ys
                 where ys = filter p xs
 -- Function prob2
 -- @type
+--  Integer -> [Integer]
+--
 -- @param
+--    This function accepts only one parameter, an integer whose digits you
+--    want to see represented as a list of integers.
+--
 -- @output
+--    A list of Integer types. This will be a list made up of the digits of the
+--    input Integer as they appear in the original input.
+--
 -- @description:
+--    This function will take an integer as input and output a list of integers
+--    representing the digits of the input as they appear.
+--    Ex:
+--      1234 -> [1,2,3,4]
+--
 prob2 :: Integer -> [Integer]
 prob2 a
   | a < 0 = []
