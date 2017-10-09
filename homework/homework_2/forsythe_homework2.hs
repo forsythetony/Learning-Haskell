@@ -56,6 +56,9 @@ prob2 a
 -- @param
 -- @output
 -- @description:
+--      This function will take an integer as input and output a list of integers
+--      representing the digits of the input in reverse order.
+--      This function does not allow a negative digit.
 prob3 :: Integer -> [Integer]
 prob3 a
     |a < 0 = []
