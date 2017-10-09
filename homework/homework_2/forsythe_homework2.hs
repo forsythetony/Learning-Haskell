@@ -56,8 +56,11 @@ prob2 a
 -- @param
 -- @output
 -- @description:
-prob3 :: a
-prob3 = undefined
+prob3 :: Integer -> [Integer]
+prob3 a
+    |a < 0 = []
+    |a < 10 = [a]
+    |otherwise = a `mod` 10 : prob3 (a `div` 10)
 -- Function prob4
 -- @type
 -- @param
