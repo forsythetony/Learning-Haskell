@@ -43,6 +43,8 @@ prob1 f p xs = map f ys
 --    Ex:
 --      1234 -> [1,2,3,4]
 --
+
+--  Can remove True
 prob2 :: Integer -> [Integer]
 prob2 a
   | a < 0 = []
@@ -76,8 +78,9 @@ prob4 = undefined
 -- @param
 -- @output
 -- @description:
-prob5 :: a
-prob5 = undefined
+prob5 :: [Integer] -> Integer
+prob5 []      = 0
+prob5 (x:xs)  = (sum (prob2 x)) + prob5 xs
 
 
 
