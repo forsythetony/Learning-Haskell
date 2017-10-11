@@ -71,8 +71,10 @@ prob3 a
 -- @param
 -- @output
 -- @description:
-prob4 :: a
-prob4 = undefined
+--      This function will take a list of non-negetive numbers and multiplies 
+--      every other digit starting from the right by 2.
+prob4 :: [Integer] -> [Integer]
+prob4 xs = fst $ foldr (\x (acc, bool) -> ((if bool then 2*x else x) : acc, not bool)) ([], False) xs
 -- Function prob5
 -- @type
 -- @param
