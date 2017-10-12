@@ -1,7 +1,11 @@
 module Homework2 where
 import Test.Hspec
 import Test.QuickCheck
+
 -- Function prob1
+-- @author
+--  Anthony Forsythe
+--
 -- @type
 --  (a -> b) -> (a -> Bool) -> [a] -> [b]
 --
@@ -25,7 +29,11 @@ import Test.QuickCheck
 prob1 :: (a -> b) -> (a -> Bool) -> [a] -> [b]
 prob1 f p xs = map f ys
                 where ys = filter p xs
+
 -- Function prob2
+-- @author
+--  Anthony Forsythe
+--
 -- @type
 --  Integer -> [Integer]
 --
@@ -43,17 +51,19 @@ prob1 f p xs = map f ys
 --    Ex:
 --      1234 -> [1,2,3,4]
 --
-
---  Can remove True
 prob2 :: Integer -> [Integer]
 prob2 a
   | a < 0 = []
   | otherwise = map toInt listString
                 where listString = show a
                       toInt i
-                        | ((i `elem` ['0'..'9']) == True) = toInteger (fromEnum i) - 48
+                        | ((i `elem` ['0'..'9']))         = toInteger (fromEnum i) - 48
                         | otherwise                       = -1
+
 -- Function prob3
+-- @author
+--  Nick Smith
+--
 -- @type
 -- @param
 -- @output
@@ -66,16 +76,24 @@ prob3 a
     |a < 0 = []
     |a < 10 = [a]
     |otherwise = a `mod` 10 : prob3 (a `div` 10)
+
 -- Function prob4
+-- @author
+--  Miranda Reese
+--
 -- @type
 -- @param
 -- @output
 -- @description:
---      This function will take a list of non-negetive numbers and multiplies 
+--      This function will take a list of non-negetive numbers and multiplies
 --      every other digit starting from the right by 2.
 prob4 :: [Integer] -> [Integer]
 prob4 xs = fst $ foldr (\x (acc, bool) -> ((if bool then 2*x else x) : acc, not bool)) ([], False) xs
+
 -- Function prob5
+-- @author
+--  Anjay Patel
+--
 -- @type
 -- @param
 -- @output
