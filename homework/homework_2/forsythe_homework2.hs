@@ -101,7 +101,9 @@ prob4 (x:y:zs)
 -- @type
 -- @param
 -- @output
--- @description:
+-- @description: This function takes a list of non-negative numbers, 
+--               and calculates the sum of all digits in the list.
+--               It returns zero if the list is empty.
 prob5 :: [Integer] -> Integer
 prob5 []      = 0
 prob5 (x:xs)  = (sum (prob2 x)) + prob5 xs
