@@ -39,3 +39,14 @@ prob4    :: a
 prob4    = undefined
 
 -- Write your Hspec Tests below
+
+test_prob1 = hspec $ do
+  describe "Prob1 from HWK3" $ do
+    context "Basic expression \"3 2 +\"" $ do
+      it "should return [Val 3, Val 2, Plus]" $ do
+        prob1 "3 2 +" `shouldBe` [Val 3, Val 2, Plus]
+
+  describe "Pob1 from HWK3" $ do
+    context "Slightly more complicated expression of \"200 + - * /\"" $ do
+      it "should return [Val 200, Plus, Minus, Mul, IntDiv]" $ do
+        prob1 "200 + - * /" `shouldBe` [Val 200, Plus, Minus, Mul, IntDiv]
