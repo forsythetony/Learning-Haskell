@@ -12,7 +12,7 @@ import Control.Exception
 --  Anthony Forsythe
 --
 -- @type
---  (String) -> PExp
+--  String -> PExp
 --
 -- @param
 --    This function takes the following as inputs:
@@ -29,6 +29,7 @@ import Control.Exception
 --    it will recursively operate of the list and built a PExp by using a
 --    sub-function to convert the current element to an Op type before adding it
 --    to the list (PExp) that is eventually returned.
+--
 prob1   :: String -> PExp
 prob1 x   = prob1' (words x)
   where prob1' []     = []
@@ -39,6 +40,47 @@ prob1 x   = prob1' (words x)
                 typeValue "*" = Mul
                 typeValue a = Val (read a)
 
+
+-- Function prob1
+-- @author
+--
+--
+-- @type
+--  PExp -> Int
+--
+-- @param
+--    This function takes the following as inputs:
+--      - A PExp in Reverse Polish Notation that you want evaluated
+--
+-- @output
+--    The integer value that is the result of evaluating the expression. A
+--    success will be returned as an Int value. If the input expression
+--    is malformed then and error will be thrown. Attempting to divide by zero
+--    will also result in an error. Errors will be returned as the default
+--    'error "error message"' value.
+--
+-- @description:
+--    This function uses a helper function `prob2'` that takes as its initial
+--    input a PExp value and an empty 'stack'. It will then recursively operate
+--    over the PExp input and follow three general paths depending on what it
+--    pulls off the head of the PExp input.
+--
+--        Case 1, a 'Val' Op:
+--            In this case it will grab the Int value and push it onto the
+--            stack by calling `prob2'` with the remaining PExp expression and
+--            the current Int stack plus the value that was just pulled off.
+--
+--        Case 2, an 'arithmetic operator' Op:
+--            In this case it will grab two Int values off of the stack and
+--            treat them as the left and right operands. Then, using the operator
+--            passed in it will evaluate the expression and push it onto the Int
+--            stack.
+--
+--        Case 3, an empty PExp list:
+--            If this is the case then we know we have evaluated everyting in
+--            the expression and the final result will be the only value
+--            remaining in the Int stack. We will return this value.
+--
 prob2    :: PExp -> Int
 prob2 ops = prob2' ops []
 
