@@ -96,7 +96,27 @@ prob2' [] [i]                   = i
 prob2' _  _                     = error "Some undefined error in problem 2"
 
 
-
+-- Function prob3
+-- @author
+--
+--
+-- @type
+--  PExp -> RPNResult
+--
+-- @param
+--    This function takes the following as inputs:
+--      - A PExp in Reverse Polish Notation that you want evaluated
+--
+-- @output
+--    Will return an RPNResult value that is a `Success Int` value or an
+--    RPNError value [DivByZero, BadSyntax]. The success value is just the
+--    integer evaluation of the expression.
+--
+-- @description:
+--    For a description of this functions basic operation see the description
+--    for 'prob2'. The only difference with this function is that it will
+--    an RPNResult type (described in a bit more detail in the section above)
+--    instead of an Int value.
 prob3    :: PExp -> RPNResult
 prob3 ops = prob3' ops []
 
