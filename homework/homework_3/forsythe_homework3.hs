@@ -41,7 +41,7 @@ prob1 x   = prob1' (words x)
                 typeValue a = Val (read a)
 
 
--- Function prob1
+-- Function prob2
 -- @author
 --
 --
