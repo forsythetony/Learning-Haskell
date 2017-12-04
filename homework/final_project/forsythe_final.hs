@@ -36,7 +36,7 @@ facrec   = parseExp ("rec fac = function(n) { if (n==0) 1 else n * fac(n-1) };" 
 exp1     = parseExp "var a = 3; var b = 8; var a = b, b = a; a + b"
 exp2     = parseExp "var a = 3; var b = 8; var a = b; var b = a; a + b"
 exp3     = parseExp "var a = 2, b = 7; (var m = 5 * a, n = b - 1; a * n + b / m) + a"
-exp4     = parseExp "var a = 2, b = 7; (var m = 5 * a, n = m - 1; a * n + b / m) + a"         
+exp4     = parseExp "var a = 2, b = 7; (var m = 5 * a, n = m - 1; a * n + b / m) + a"
 -- N.b.,                                                  ^^^ is a free occurence of m (by Rule 2)
 
 -----------------
@@ -54,15 +54,18 @@ eval (Variable x) env               = fromJust x (lookup x env)
         fromJust x Nothing          = errorWithoutStackTrace ("Variable " ++ x ++ " unbound!")
 eval (Function x body) env          = ClosureV x body env
 -----------------------------------------------------------------
-eval (Declare x [(x,exp)] body) env = eval body newEnv         -- This clause needs to be changed.
-  where newEnv = (x, eval exp env) : env                       --
+eval (Declare decls body) env = eval body newEnv         -- This clause needs to be changed.
+  where vars = map fst decls
+        exps = map snd decls
+        vals = map (\e -> eval e env) exps
+        newEnv = zip vars vals
 -----------------------------------------------------------------
 eval (RecDeclare x exp body) env    = eval body newEnv
   where newEnv = (x, eval exp newEnv) : env
 eval (Call fun arg) env = eval body newEnv
   where ClosureV x body closeEnv    = eval fun env
         newEnv = (x, eval arg env) : closeEnv
-        
+
 -- Use this function to run your eval solution.
 execute :: Exp -> Value
 execute exp = eval exp []
@@ -102,3 +105,12 @@ process iline  = do
 
 
 
+test_probs = do
+  test_prob1
+
+test_prob1 = hspec $ do
+  describe "Problem 1 from Final Project" $ do
+
+    context "Basic" $ do
+      it "should return IntV 120" $ do
+        execute facrec `shouldBe` IntV 120
