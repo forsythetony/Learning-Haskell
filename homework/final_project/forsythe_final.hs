@@ -81,26 +81,71 @@ when doing the Declare case.
 -}
 
 freeByRule1 :: [String] -> Exp -> [String]
-freeByRule1 = undefined
+freeByRule1 seen (Literal _)            = []
+freeByRule1 seen (Unary _ e)            = freeByRule1 seen e
+freeByRule1 seen (Binary _ e1 e2)       = freeByRule1 seen e1 ++ freeByRule1 seen e2
+freeByRule1 seen (If t e1 e2)           = freeByRule1 seen t ++ freeByRule1 seen e1 ++ freeByRule1 seen e2
+freeByRule1 seen (Variable x)           = if (elem x seen) then [] else [x]
+freeByRule1 seen (Declare x1 body)      = helper seen x1 ++ freeByRule1 (seen ++ vars) body
+  where vars            = map fst x1
+        helper seen x   = undefined
+freeByRule1 seen (RecDeclare x e body)  = freeByRule1 (x:seen) e ++ freeByRule1 (x:seen) body
+freeByRule1 seen (Function x e)         = freeByRule1 (x:seen) e
+freeByRule1 seen (Call e1 e2)           = freeByRule1 seen e1 ++ freeByRule1 seen e2
+
+{--
+Literal Value
+  | Unary UnaryOp Exp
+  | Binary BinaryOp Exp Exp
+  | If Exp Exp Exp
+  | Variable String
+  | Declare [(String, Exp)] Exp
+  | RecDeclare String Exp Exp
+  | Function String Exp
+  | Call Exp Exp
+--}
 
 freeByRule2 :: [String] -> Exp -> [String]
-freeByRule2 = undefined
+
+
+freeByRule2 seen (Literal _)            = []
+freeByRule2 seen (Unary _ e)            = freeByRule2 seen e
+freeByRule2 seen (Binary _ e1 e2)       = freeByRule2 seen e1 ++ freeByRule2 seen e2
+freeByRule2 seen (If t e1 e2)           = freeByRule2 seen t ++ freeByRule2 seen e1 ++ freeByRule2 seen e2
+freeByRule2 seen (Variable x)           = if (elem x seen) then [] else [x]
+{--
+  Declare
+    Variables from `x1` use to check the body using the variables that we've already
+    seen.
+--}
+freeByRule2 seen (Declare x1 body)      = concat free ++ freeByRule2 (seen ++ vars) body
+  where   vars = map fst x1
+          exps = map snd x1
+          free = map (freeByRule2 seen) exps
+
+
+freeByRule2 seen (RecDeclare x e body)  = freeByRule2 (x:seen) e ++ freeByRule2 (x:seen) body
+freeByRule2 seen (Function x e)         = freeByRule2 (x:seen) e
+freeByRule2 seen (Call e1 e2)           = freeByRule2 seen e1 ++ freeByRule2 seen e2
 
 ---- Problem 3.
 
-repl :: IO ()
-repl = do
-         putStr "RecFun> "
-         iline <- getLine
-         process iline
-
-process :: String -> IO ()
-process "quit" = return ()
-process iline  = do
-  putStrLn (show v ++ "\n")
-  repl
-   where e = parseExp iline
-         v = eval e []
+-- repl :: IO ()
+-- repl = do
+--          putStr "RecFun> "
+--          iline <- getLine
+--          process iline
+--
+-- process :: String -> IO ()
+-- process "quit" = return ()
+-- process iline  = do
+--   putStrLn (show v ++ "\n")
+--   repl
+--    where e = parseExp i
+--
+--
+--    line
+--          v = eval e []
 
 
 
