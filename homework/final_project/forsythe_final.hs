@@ -80,15 +80,20 @@ when doing the Declare case.
 
 -}
 
+
+freeChecker seen free ((v,e):rest)  = freeChecker (v:seen) (freeByRule1 seen e ++ free) rest
+freeChecker seen free []            = free
+
 freeByRule1 :: [String] -> Exp -> [String]
 freeByRule1 seen (Literal _)            = []
 freeByRule1 seen (Unary _ e)            = freeByRule1 seen e
 freeByRule1 seen (Binary _ e1 e2)       = freeByRule1 seen e1 ++ freeByRule1 seen e2
 freeByRule1 seen (If t e1 e2)           = freeByRule1 seen t ++ freeByRule1 seen e1 ++ freeByRule1 seen e2
 freeByRule1 seen (Variable x)           = if (elem x seen) then [] else [x]
-freeByRule1 seen (Declare x1 body)      = helper seen x1 ++ freeByRule1 (seen ++ vars) body
-  where vars            = map fst x1
-        helper seen x   = undefined
+freeByRule1 seen (Declare ds body)     = let r1 = freeChecker seen [] ds
+                                            in  r1 ++ freeByRule1 (vars ++ seen) body
+                                            where vars = map fst ds
+                                            
 freeByRule1 seen (RecDeclare x e body)  = freeByRule1 (x:seen) e ++ freeByRule1 (x:seen) body
 freeByRule1 seen (Function x e)         = freeByRule1 (x:seen) e
 freeByRule1 seen (Call e1 e2)           = freeByRule1 seen e1 ++ freeByRule1 seen e2
